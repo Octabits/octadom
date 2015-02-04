@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>octadom samples</title>
+
+</head>
+
+<body>
+  <textarea id="outputTA"></textarea>
+  <div id="jokeList"></div>
+  <div id="meFormy"></div>
+  <script type="text/javascript" src="../libs/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="../dist/octadom.js"></script>
+  <script type="text/javascript">
+  var myOctadom = com_octabits_octadom();
+  var template = {
+    "el": "ul",
+    "atts": {
+      "style": "color: #ff0000"
+    },
+    "val": [{
+      "el": "li",
+      "val": "list item 1"
+    }, {
+      "el": "li",
+      "val": "list item 1"
+    }, {
+      "el": "li",
+      "val": {
+        "el": "div",
+        "val": {
+          "el": "button",
+          "val": "push me"
+        }
+      }
+    }]
+  };
+
+  var octadomit = myOctadom.fromTemplate({
+    template: template
+  });
+
+  var template2 = {
+    "el": "form",
+    "atts": {
+      "id": "form1"
+    },
+    "val": [{
+      "el": "input",
+      "atts": {
+        "type": "text",
+        "title": "Tolltipish",
+        "placeholder": "Name here.."
+      }
+    }, {
+      "el": "select",
+      "atts": {
+        "name": "carlist",
+        "form": "form1"
+      },
+      "val": [{
+        "el": "option",
+        "val": "Volvo"
+      }, {
+        "el": "option",
+        "val": "Ford"
+      }, {
+        "el": "option",
+        "val": "BMW"
+      }, ]
+    }]
+
+  };
+
+  var octadomit2 = myOctadom.fromTemplate({
+    template: template2
+  });
+  var provider = {
+    data: {
+      cars: ["Ford", "BMX", "Chevy"]
+    }
+  };
+  var template3 = {
+    "el": "select",
+    "atts": {
+      "name": "carlist"
+    },
+    "each": {
+      "key": "data.cars",
+      "el": "option"
+    }
+  };
+
+  var octadomit3 = myOctadom.fromTemplate({
+    template: template3,
+    provider: provider
+  });
+
+  $(function() {
+    $("#jokeList").html(octadomit)
+    $("#meFormy").html(octadomit2);
+    $("#outputTA").val(octadomit3);
+  });
+  </script>
+</body>
+
+</html>
